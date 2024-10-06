@@ -1,0 +1,18 @@
+{
+    "recipeTypes": [
+        { "id": 1, "type": "Breakfast Recipes" },
+        { "id": 2, "type": "Lunch Recipes" },
+        { "id": 3, "type": "Dinner Recipes" },
+        { "id": 4, "type": "Appetizer Recipes" },
+        { "id": 5, "type": "Salad Recipes" },
+        { "id": 6, "type": "Main-Course Recipes" },
+        { "id": 7, "type": "Side-Dish Recipes" },
+        { "id": 8, "type": "Baked-Goods Recipes" },
+        { "id": 9, "type": "Dessert Recipes" },
+        { "id": 10, "type": "Snack Recipes" },
+        { "id": 11, "type": "Soup Recipes" },
+        { "id": 12, "type": "Holiday Recipes" },
+        { "id": 13, "type": "Vegetarian Dishes" }
+    ]
+}
+  
