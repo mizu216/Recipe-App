@@ -1,37 +1,41 @@
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import colors from '../../themes/colors';
+import images from '../../themes/images';
+import { postChangePassword, postSendOTP } from './service';
 import styles from "./style";
-import { postPasswordReset } from './service';
 
-const ResetPassword = observer(({ navigation, route}) => {
-    const [password, setPassword] = useState('');
+const ChangePassword = observer(({ navigation }) => {
+    const [oldPass, setOldPass] = useState('');
+    const [newPass, setNewPass] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [secureTextEntry1, setSecureTextEntry1] = useState(true);
     const [secureTextEntry2, setSecureTextEntry2] = useState(true);
-    const user = route.params;
-    console.log(route.params);
+    const [secureTextEntry3, setSecureTextEntry3] = useState(true);
+
     const handleSubmit = () => {
-        if (password.length<8)
+        if (newPass.length<8)
         {
             Alert.alert("Invalid Password Format","Please make sure your password length is more than 8.")
         }
-        else if(password!==confirmPassword){
+        else if(newPass!==confirmPassword){
             Alert.alert("Invalid Confirm Password","Please make sure your password same with confirm password.")
         }
         else{
-            postPasswordReset(navigation,password,user.email)
+            postChangePassword(oldPass,newPass,navigation);
         }
     };
 
+
     return (
         <View style={styles.pageContainer}>
-            <View style={styles.textInputContainer}>
+            <View style={styles.TextInputConTainer}>
                 <TextInput
-                    label="Password"
-                    value={password}
-                    onChangeText={text => setPassword(text)}
+                    label="Old Password"
+                    value={oldPass}
+                    onChangeText={text => setOldPass(text)}
                     mode="outlined"
                     style={{ marginHorizontal: 20, marginTop: 20}}
                     underlineColor="transparent"
@@ -49,9 +53,9 @@ const ResetPassword = observer(({ navigation, route}) => {
                     secureTextEntry={secureTextEntry1}
                 />
                 <TextInput
-                    label="Confirm Password"
-                    value={confirmPassword}
-                    onChangeText={text => setConfirmPassword(text)}
+                    label="New Password"
+                    value={newPass}
+                    onChangeText={text => setNewPass(text)}
                     mode="outlined"
                     style={{ marginHorizontal: 20, marginTop: 20}}
                     underlineColor="transparent"
@@ -68,14 +72,34 @@ const ResetPassword = observer(({ navigation, route}) => {
                     }
                     secureTextEntry={secureTextEntry2}
                 />
+                <TextInput
+                    label="Confirm Password"
+                    value={confirmPassword}
+                    onChangeText={text => setConfirmPassword(text)}
+                    mode="outlined"
+                    style={{ marginHorizontal: 20, marginTop: 20}}
+                    underlineColor="transparent"
+                    outlineColor='black'
+                    activeOutlineColor='black'
+                    right={
+                    <TextInput.Icon
+                        icon={secureTextEntry3 ? "eye-off" : "eye"}
+                        onPress={() => setSecureTextEntry3(!secureTextEntry3)}
+                    />
+                    }
+                    left={
+                        <TextInput.Icon icon="lock-outline"/>
+                    }
+                    secureTextEntry={secureTextEntry3}
+                />
             </View>
-            <View style={styles.nextButtonContainer}>
-                <TouchableOpacity style={styles.nextButton} onPress={handleSubmit}>
-                    <Text style={styles.nextButtonText}>Next</Text>
+            <View style={styles.confirmButtonContainer}>
+                <TouchableOpacity style={styles.confirmButton} onPress={handleSubmit}>
+                    <Text style={styles.confirmButtonText}>Confirm</Text>
                 </TouchableOpacity> 
             </View>
         </View>
     );
 });
 
-export default ResetPassword;
+export default ChangePassword;

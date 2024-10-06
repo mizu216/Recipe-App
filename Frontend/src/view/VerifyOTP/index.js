@@ -3,7 +3,8 @@ import OTPTextView from "react-native-otp-textinput";
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../../themes/colors';
-import { postRegister, postSendOTP } from './service';
+import { postRegister, postSendOTP, postVerifyReset } from './service';
+import styles from "./style";
 
 const VerifyOTP = observer(({ navigation,route}) => {
     const [otp, setOTP] = useState('');
@@ -17,26 +18,27 @@ const VerifyOTP = observer(({ navigation,route}) => {
       }, [otp]);
 
     const handleSubmit = () =>{
-        if(user.mode='create'){
-            postRegister(user.email,user.password,otp,navigation)
+        if(user.mode==='create'){
+            postRegister(user.email,user.password,otp,navigation);
         }
-        if(user.mode='reset'){
+        else if(user.mode==='reset'){
+            postVerifyReset(user.email,otp,navigation);
         }
     }
 
     return (
-        <View style={{flex:1,backgroundColor:'white'}}>
+        <View style={styles.pageContainer}>
             <OTPTextView 
                 handleTextChange={setOTP} 
                 inputCount={3} 
                 tintColor={colors.theme}
                 containerStyle={{justifyContent: 'space-around',marginTop: 30,marginBottom: 30,}}
             />
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:20}}>
-                <Text style={{fontSize:15,fontWeight:'bold',color:colors.theme}}>Enter the OTP sent to </Text>
-                <Text style={{fontSize:15,fontWeight:'bold',color:colors.theme}}>{user.email}</Text>
+            <View style={styles.descriptionContainer}>
+                <Text style={styles.descriptionText}>Enter the OTP sent to </Text>
+                <Text style={styles.descriptionText2}>{user.email}</Text>
             </View>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop:20}}>
+            <View style={styles.descriptionContainer}>
                 <Text>Didn't receive email? </Text>
                 <TouchableOpacity onPress={()=>{postSendOTP(user.email,user.mode)}}>
                     <Text>Resend OTP</Text>

@@ -5,16 +5,16 @@ import { TextInput } from 'react-native-paper';
 import colors from '../../themes/colors';
 import images from '../../themes/images';
 import { postLoginUser } from './service';
+import styles from "./style";
 
 const Login = observer(({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-
     return (
-        <View style={{flex:1,paddingTop:60,backgroundColor:'white'}}>
-            <Image source={images.loginImage} style={{width:'auto',height:200,marginBottom:20}} resizeMode='contain' />
+        <View style={styles.pageContainer}>
+            <Image source={images.loginImage} style={styles.loginImage} resizeMode='contain' />
             <TextInput
                 label="Email"
                 value={email}
@@ -48,20 +48,20 @@ const Login = observer(({ navigation }) => {
                 }
                 secureTextEntry={secureTextEntry}
             />
-            <TouchableOpacity style={{alignSelf:'flex-end',marginHorizontal:20,marginTop:5}}>
+            <TouchableOpacity style={styles.forgotPasswordButton} onPress={()=>{navigation.navigate('ForgotPassword')}}>
                 <Text>Forgot Your Password?</Text>
             </TouchableOpacity>
-            <View style={{marginTop:80,marginBottom:20,marginHorizontal:30}}>
-                <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,borderRadius:50,paddingVertical:10}} onPress={()=>{postLoginUser(email,password,navigation)}}>
-                    <Text style={{color:'white',fontSize:16,textAlign:'center'}}>Login</Text>
+            <View style={styles.loginButtonContainer}>
+                <TouchableOpacity style={styles.loginButton} onPress={()=>{postLoginUser(email,password,navigation)}}>
+                    <Text style={styles.loginButtonText}>Login</Text>
                 </TouchableOpacity> 
             </View>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+            <View style={styles.noAccountContainer}>
                 <Text>
                     Don't have an account?
                 </Text>
                 <TouchableOpacity onPress={()=>{navigation.replace('Register')}}>
-                    <Text style={{color:colors.theme,fontWeight:'bold'}}> Sign Up</Text>
+                    <Text style={styles.noAccountText}> Sign Up</Text>
                 </TouchableOpacity>
             </View>
         </View>

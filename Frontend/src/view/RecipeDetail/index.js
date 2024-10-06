@@ -9,6 +9,7 @@ import recipeData from '../../assets/json/recipe_types.json'; // Adjust the path
 import { Picker } from '@react-native-picker/picker';
 import RNFS from 'react-native-fs'; // Import react-native-fs for file operations
 import { deleteRecipe, editRecipe, saveRecipe } from './service';
+import styles from "./style";
 
 const RecipeDetail = observer(({ navigation,route}) => {
     const [imageUri, setImageUri] = useState(null);
@@ -143,7 +144,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
             await editRecipe(newPath, recipeName, recipeSelectTypes, JSON.stringify(ingredients), JSON.stringify(steps),recipe.id);
             navigation.replace('Tab', {
                 screen: 'RecipeList',
-            })
+            });
         } catch (error) {
             console.error('Error update recipe:', error);
         }
@@ -152,33 +153,33 @@ const RecipeDetail = observer(({ navigation,route}) => {
     return (
         <ScrollView>
             {imageUri==="file://"?
-                <View style={{height:150,justifyContent:'center',alignItems:'center',marginHorizontal:40,marginTop:20,marginBottom:20,borderRadius:20,backgroundColor:'white',elevation:5,overflow:'hidden'}}>
+                <View style={styles.imageContainer}>
                     <IconION name="camera-outline" color={colors.theme} size={50} />
                 </View>
-                :<Image source={{ uri: imageUri }} style={{width:'auto',height:200,marginTop:20,marginBottom:20}} resizeMode='contain' />
+                :<Image source={{ uri: imageUri }} style={styles.image} resizeMode='contain' />
             }
             {editable===false&&
-                <View style={{justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,padding:10,width:250,borderRadius:50}} onPress={()=>{setEditable(true)}}>
-                        <Text style={{color:'white',fontSize:16,textAlign:'center'}}>Edit Recipe</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.editButton} onPress={()=>{setEditable(true)}}>
+                        <Text style={styles.editButtonText}>Edit Recipe</Text>
                     </TouchableOpacity> 
                 </View>
             }
             {editable===false&&
-                <View style={{justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={{backgroundColor:'white',elevation:5,padding:10,width:250,borderRadius:50,marginTop:15}} onPress={()=>{confirmDelete(recipe.id)}}>
-                        <Text style={{color:colors.theme,fontSize:16,textAlign:'center'}}>Delete Recipe</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.deleteButton} onPress={()=>{confirmDelete(recipe.id)}}>
+                        <Text style={styles.deleteButtonText}>Delete Recipe</Text>
                     </TouchableOpacity> 
                 </View>
             }
             {editable===true&&
-                <View style={{justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,padding:10,paddingHorizontal:70,borderRadius:50}} onPress={handleChoosePhoto}>
-                        <Text style={{color:'white',fontSize:16}}>Upload Photo</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.uploadButton} onPress={handleChoosePhoto}>
+                        <Text style={styles.uploadButtonText}>Upload Photo</Text>
                     </TouchableOpacity> 
                 </View>  
             }
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.recipeComponentTitle}>
                 Recipe Name
             </Text>
             <TextInput
@@ -192,7 +193,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
                 activeOutlineColor='black'
                 editable={editable} 
             />
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.recipeComponentTitle}>
                 Recipe Type
             </Text>
             {editable===false&&<TextInput
@@ -207,7 +208,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
             />
             }
             {editable===true&&
-                <View style={{marginHorizontal:20,marginTop:5,height:43,justifyContent:'center',backgroundColor:'white',borderColor:'black',borderWidth:1,borderRadius:5,padding:5}}>
+                <View style={styles.recipeTypePickerContainer}>
                     <Picker
                         selectedValue={recipeSelectTypes}
                         onValueChange={(itemValue, itemIndex) => setRecipeSelectTypes(itemValue)}
@@ -219,7 +220,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
                     </Picker>
                 </View>
             }
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.recipeComponentTitle}>
                 Ingredient List
             </Text>
             {ingredients.map((item, index) => (
@@ -238,7 +239,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
                 </View>
             ))}
             {editable===true&&
-                <View style={{marginHorizontal:25,marginTop:5,justifyContent:'space-between',flexDirection:'row'}}>
+                <View style={styles.amountControllerContainer}>
                     <TouchableOpacity onPress={deleteLastIngredient}>
                         <Text>
                             Remove Ingredient
@@ -251,7 +252,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
                     </TouchableOpacity>
                 </View>
             }
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.recipeComponentTitle}>
                 Procedure
             </Text>
             {steps.map((item, index) => (
@@ -273,7 +274,7 @@ const RecipeDetail = observer(({ navigation,route}) => {
                 </View>
             ))}
             {editable===true&&
-                <View style={{marginHorizontal:25,marginTop:5,justifyContent:'space-between',flexDirection:'row'}}>
+                <View style={styles.amountControllerContainer}>
                     <TouchableOpacity onPress={deleteLastStep}>
                         <Text>
                             Remove Step
@@ -287,16 +288,16 @@ const RecipeDetail = observer(({ navigation,route}) => {
                 </View>
             }
             {editable===true&&
-                <View style={{justifyContent:'center',alignItems:'center', marginTop:30}}>
-                    <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,padding:10,width:300,borderRadius:50}} onPress={updateRecipe}>
-                        <Text style={{color:'white',fontSize:16,textAlign:'center'}}>Confirm</Text>
+                <View style={styles.confirmButtonContainer}>
+                    <TouchableOpacity style={styles.confirmButton} onPress={updateRecipe}>
+                        <Text style={styles.confirmButtonText}>Confirm</Text>
                     </TouchableOpacity> 
                 </View>
             }
             {editable===true&&
-                <View style={{justifyContent:'center',alignItems:'center', marginVertical:20}}>
-                    <TouchableOpacity style={{backgroundColor:'white',elevation:5,padding:10,width:300,borderRadius:50}} onPress={()=>{setEditable(false)}}>
-                        <Text style={{color:colors.theme,fontSize:16,textAlign:'center'}}>Cancel</Text>
+                <View style={styles.cancelButtonContainer}>
+                    <TouchableOpacity style={styles.cancelButton} onPress={()=>{setEditable(false)}}>
+                        <Text style={styles.cancelButtonText}>Cancel</Text>
                     </TouchableOpacity> 
                 </View>
             }

@@ -1,25 +1,25 @@
 import { StyleSheet } from "react-native";
 import colors from "../../themes/colors";
+import { TextInput } from "react-native-paper";
 
 export default StyleSheet.create({
     pageContainer:{
         flex:1,
-        paddingVertical:20
+        paddingVertical:60,
     },
-    textInputContainer:{
-        flex:1
+    TextInputConTainer:{
+        flex:1,
     },
-    nextButtonContainer:{
-        marginTop:150,
-        marginBottom:20,
-        marginHorizontal:30,
+    confirmButtonContainer:{
+        marginHorizontal:30
     },
-    nextButton:{
+    confirmButton:{
         backgroundColor:colors.theme,
-        elevation:5,borderRadius:50,
+        elevation:5,
+        borderRadius:50,
         paddingVertical:10
     },
-    nextButtonText:{
+    confirmButtonText:{
         color:'white',
         fontSize:16,
         textAlign:'center'

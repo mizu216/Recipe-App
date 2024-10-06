@@ -12,6 +12,10 @@ import { TouchableOpacity } from 'react-native';
 import Login from '../view/Login';
 import Register from '../view/Register';
 import VerifyOTP from '../view/VerifyOTP';
+import ForgotPassword from '../view/ForgotPassword';
+import ResetPassword from '../view/ResetPassword';
+import ChangePassword from '../view/ChangePassword';
+import Welcome from '../view/Welcome';
 
 const tabStack = createBottomTabNavigator();
 function TabStack() {
@@ -56,7 +60,6 @@ function TabStack() {
         name="Setting"
         component={Setting}
         options={{
-          headerShown: false,
           title: 'Setting',
           headerTintColor: colors.theme,
           tabBarIcon: ({color}) => (
@@ -92,6 +95,15 @@ function GeneralStack (){
           headerTintColor: colors.theme,
         }}
       />
+      <generalStack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={{
+          title: 'Change Password',
+          headerShown: true,
+          headerTintColor: colors.theme,
+        }}
+      />
     </generalStack.Navigator>
   );
 }
@@ -119,6 +131,16 @@ function AuthStack (){
         component={VerifyOTP}
         options={{title: 'Verify OTP',headerShown:true,headerTintColor: colors.theme,}}
       />
+      <authStack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={{title: 'Forgot Password',headerShown:true,headerTintColor: colors.theme,}}
+      />
+      <authStack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{title: 'Reset Password',headerShown:true,headerTintColor: colors.theme,}}
+      />
     </authStack.Navigator>
   );
 }
@@ -132,6 +154,13 @@ function AppStack (){
         tabBarShowLabel: false,
       }}>
         <appStack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <appStack.Screen
         name="Auth"
         component={AuthStack}
         options={{

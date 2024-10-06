@@ -10,6 +10,7 @@ export const postLoginUser = async (email,password,navigation) => {
     try{
       const response = await axios.post('http://192.168.0.102:5001/login',userData);
       if (response.data.status==="ok"){
+        AsyncStorage.setItem('@userToken',JSON.stringify(email));
         navigation.replace('Tab', {
             screen: 'RecipeList',
         })

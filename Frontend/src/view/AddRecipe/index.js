@@ -9,6 +9,7 @@ import recipeData from '../../assets/json/recipe_types.json'; // Adjust the path
 import { Picker } from '@react-native-picker/picker';
 import RNFS from 'react-native-fs'; // Import react-native-fs for file operations
 import { saveRecipe } from './service';
+import styles from "./style";
 
 const AddRecipe = observer(({ navigation }) => {
     const [imageUri, setImageUri] = useState(null);
@@ -115,14 +116,14 @@ const AddRecipe = observer(({ navigation }) => {
     return (
         <ScrollView>
             {imageUri===null?
-                <View style={{height:150,justifyContent:'center',alignItems:'center',marginHorizontal:40,marginTop:20,marginBottom:20,borderRadius:20,backgroundColor:'white',elevation:5,overflow:'hidden'}}>
+                <View style={styles.imageHolder}>
                     <IconION name="camera-outline" color={colors.theme} size={50} />
                 </View>
-                :<Image source={{ uri: imageUri }} style={{width:'auto',height:200,marginTop:20,marginBottom:20}} resizeMode='contain' />
+                :<Image source={{ uri: imageUri }} style={styles.image} resizeMode='contain' />
             }
-            <View style={{justifyContent:'center',alignItems:'center'}}>
-                <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,padding:10,paddingHorizontal:70,borderRadius:50}} onPress={handleChoosePhoto}>
-                    <Text style={{color:'white',fontSize:16}}>Upload Photo</Text>
+            <View style={styles.uploadPhotoButtonContainer}>
+                <TouchableOpacity style={styles.uploadPhotoButton} onPress={handleChoosePhoto}>
+                    <Text style={styles.uploadPhotoButtonText}>Upload Photo</Text>
                 </TouchableOpacity> 
             </View>
             <TextInput
@@ -135,7 +136,7 @@ const AddRecipe = observer(({ navigation }) => {
                 outlineColor='black'
                 activeOutlineColor='black'
             />
-            <View style={{marginHorizontal:20,marginTop:20,height:43,justifyContent:'center',backgroundColor:'white',borderColor:'black',borderWidth:1,borderRadius:5,padding:5}}>
+            <View style={styles.recipeTypePickerContainer}>
                 <Picker
                     selectedValue={recipeSelectTypes}
                     onValueChange={(itemValue, itemIndex) => setRecipeSelectTypes(itemValue)}
@@ -146,7 +147,7 @@ const AddRecipe = observer(({ navigation }) => {
                     ))}
                 </Picker>
             </View>
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.ingredientTitle}>
                 Ingredient List
             </Text>
             {ingredients.map((item, index) => (
@@ -163,7 +164,7 @@ const AddRecipe = observer(({ navigation }) => {
                     />
                 </View>
             ))}
-            <View style={{marginHorizontal:25,marginTop:5,justifyContent:'space-between',flexDirection:'row'}}>
+            <View style={styles.amountControlContainer}>
                 <TouchableOpacity onPress={deleteLastIngredient}>
                     <Text>
                         Remove Ingredient
@@ -175,7 +176,7 @@ const AddRecipe = observer(({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <Text style={{marginHorizontal:10,marginTop:20,fontSize:16,color:colors.theme,fontWeight:'bold'}}>
+            <Text style={styles.procedureTitle}>
                 Procedure
             </Text>
             {steps.map((item, index) => (
@@ -195,7 +196,7 @@ const AddRecipe = observer(({ navigation }) => {
                     />
                 </View>
             ))}
-            <View style={{marginHorizontal:25,marginTop:5,justifyContent:'space-between',flexDirection:'row'}}>
+            <View style={styles.amountControlContainer}>
                 <TouchableOpacity onPress={deleteLastStep}>
                     <Text>
                         Remove Step
@@ -207,9 +208,9 @@ const AddRecipe = observer(({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={{justifyContent:'center',alignItems:'center', marginVertical:30}}>
-                <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,padding:10,paddingHorizontal:90,borderRadius:50}} onPress={createNewRecipe}>
-                    <Text style={{color:'white',fontSize:16}}>Create New Recipe</Text>
+            <View style={styles.creatButtonContainer}>
+                <TouchableOpacity style={styles.createButton} onPress={createNewRecipe}>
+                    <Text style={styles.creatButtonText}>Create New Recipe</Text>
                 </TouchableOpacity> 
             </View>
         </ScrollView>

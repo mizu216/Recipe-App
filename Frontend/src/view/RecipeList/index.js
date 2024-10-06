@@ -6,6 +6,7 @@ import colors from '../../themes/colors';
 import images from '../../themes/images';
 import { Picker } from '@react-native-picker/picker';
 import recipeData from '../../assets/json/recipe_types.json'; // Adjust the path according to your folder structure
+import styles from "./style";
 
 const RecipeList = observer(({ navigation }) => {
     const [recipes, setRecipes] = useState([]);
@@ -34,23 +35,23 @@ const RecipeList = observer(({ navigation }) => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity 
-            style={{backgroundColor:'white',elevation:5,width:(Dimensions.get('screen').width/2)-20, marginVertical:10,borderRadius:10,padding:15,alignItems:'center'}} 
+            style={styles.recipeContainer} 
             onPress={()=>{navigation.navigate('General', {
                 screen: 'RecipeDetail',
                 params: item,
             });}}
         >
-            <Image source={item.imagePath===''?images.defaultImage:{uri: `file://${item.imagePath}`}} style={{width:'100%',height:150}} resizeMode='cover' />
-            <Text style={{fontSize:16,fontWeight:'bold',color:colors.theme,marginVertical:5}}>{item.name}</Text>
-            <Text style={{fontSize:14, color:colors.theme}}>{item.type}</Text>
+            <Image source={item.imagePath===''?images.defaultImage:{uri: `file://${item.imagePath}`}} style={styles.recipeImage} resizeMode='cover' />
+            <Text style={styles.recipeNameText}>{item.name}</Text>
+            <Text style={styles.recipeTypeText}>{item.type}</Text>
         </TouchableOpacity>
     );
 
     return (
-        <View style={{paddingTop:20}}>
+        <View style={styles.pageContainer}>
             <FlatList
                 ListHeaderComponent={
-                    <View style={{alignSelf:'flex-end',marginBottom:10,height:30,width:200,justifyContent:'center',backgroundColor:'white',borderColor:'black',borderWidth:1,borderRadius:20,padding:5}}>
+                    <View style={styles.recipeTypePickerContainer}>
                         <Picker
                             selectedValue={recipeSelectTypes}
                             onValueChange={(itemValue, itemIndex) => setRecipeSelectTypes(itemValue)}
@@ -69,8 +70,8 @@ const RecipeList = observer(({ navigation }) => {
                 keyExtractor={(item) => item.id}
                 numColumns={2}
                 ListEmptyComponent={
-                    <View style={{ alignItems: 'center', marginTop: 20 }}>
-                        <Text style={{ fontSize: 16, color: colors.theme }}>No recipes found for this type.</Text>
+                    <View style={styles.emptyComponentContainer}>
+                        <Text style={styles.emptyComponentText}>No recipes found for this type.</Text>
                     </View>
                 }
             />

@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-paper';
 import colors from '../../themes/colors';
 import images from '../../themes/images';
 import { postSendOTP } from './service';
+import styles from "./style";
 
 const Register = observer(({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -38,8 +39,8 @@ const Register = observer(({ navigation }) => {
 
 
     return (
-        <View style={{flex:1,paddingTop:60,backgroundColor:'white'}}>
-            <Image source={images.loginImage} style={{width:'auto',height:200,marginBottom:20}} resizeMode='contain' />
+        <View style={styles.pageContainer}>
+            <Image source={images.loginImage} style={styles.registerImage} resizeMode='contain' />
             <TextInput
                 label="Email"
                 value={email}
@@ -93,17 +94,17 @@ const Register = observer(({ navigation }) => {
                 }
                 secureTextEntry={secureTextEntry2}
             />
-            <View style={{marginTop:80,marginBottom:20,marginHorizontal:30}}>
-                <TouchableOpacity style={{backgroundColor:colors.theme,elevation:5,borderRadius:50,paddingVertical:10}} onPress={handleSubmit}>
-                    <Text style={{color:'white',fontSize:16,textAlign:'center'}}>Register</Text>
+            <View style={styles.registerButtonContainer}>
+                <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
+                    <Text style={styles.registerButtonText}>Register</Text>
                 </TouchableOpacity> 
             </View>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+            <View style={styles.haveAccountContainer}>
                 <Text>
                     Already have an account?
                 </Text>
                 <TouchableOpacity onPress={()=>{navigation.replace('Login')}}>
-                    <Text style={{color:colors.theme,fontWeight:'bold'}}> Sign In</Text>
+                    <Text style={styles.haveAccountText}> Sign In</Text>
                 </TouchableOpacity>
             </View>
         </View>

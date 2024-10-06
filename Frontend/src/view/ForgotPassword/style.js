@@ -12,33 +12,26 @@ export default StyleSheet.create({
         height:200,
         marginBottom:20
     },
-    forgotPasswordButton:{
-        alignSelf:'flex-end',
-        marginHorizontal:20,
-        marginTop:5
+    descriptionText:{
+        marginLeft:20,
+        fontSize:16,
+        marginTop:30,
+        color:colors.theme,
+        fontWeight:'bold'
     },
-    loginButtonContainer:{
-        marginTop:80,
+    nextButtonContainer:{
+        marginTop:150,
         marginBottom:20,
-        marginHorizontal:30
+        marginHorizontal:30,
     },
-    loginButton:{
+    nextButton:{
         backgroundColor:colors.theme,
         elevation:5,borderRadius:50,
         paddingVertical:10
     },
-    loginButtonText:{
+    nextButtonText:{
         color:'white',
         fontSize:16,
         textAlign:'center'
-    },
-    noAccountContainer:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    noAccountText:{
-        color:colors.theme,
-        fontWeight:'bold'
     },
 })
