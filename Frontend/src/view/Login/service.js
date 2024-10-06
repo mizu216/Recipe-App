@@ -8,7 +8,7 @@ export const postLoginUser = async (email,password,navigation) => {
       password:password
     };
     try{
-      const response = await axios.post('http://192.168.0.102:5001/login',userData);
+      const response = await axios.post('https://recipe-app-tlv5.onrender.com/login',userData);
       if (response.data.status==="ok"){
         AsyncStorage.setItem('@userToken',JSON.stringify(email));
         navigation.replace('Tab', {

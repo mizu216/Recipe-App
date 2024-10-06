@@ -8,7 +8,7 @@ export const postRegister = async (email,password,otp,navigation) => {
       password:password,
       otp:otp,
     };
-    const response = await axios.post('http://192.168.0.102:5001/register',userData);
+    const response = await axios.post('https://recipe-app-tlv5.onrender.com/register',userData);
     try{
       if (response.data.status==="ok"){
         AsyncStorage.setItem('@userToken',JSON.stringify(email));
@@ -33,7 +33,7 @@ export const postVerifyReset = async (email,otp,navigation) => {
     email:email,
     otp:otp,
   };
-  const response = await axios.post('http://192.168.0.102:5001/verify-reset',userData);
+  const response = await axios.post('https://recipe-app-tlv5.onrender.com/verify-reset',userData);
   try{
     if (response.data.status==="ok"){
       navigation.navigate('ResetPassword', { email }); 
@@ -55,7 +55,7 @@ export const postSendOTP = async (email,mode) => {
       email:email,
       mode:mode
     };
-    const response = await axios.post('http://192.168.0.102:5001/send-otp',userData)
+    const response = await axios.post('https://recipe-app-tlv5.onrender.com/send-otp',userData)
       try{
         if (response.data.status==="ok"){
             Alert.alert('Sucess', 'OTP has resend');

@@ -6,7 +6,7 @@ export const postChangePassword = async (currentPassword,newPassword,navigation)
     const newToken = await AsyncStorage.getItem('@userToken');
     const parseToken = JSON.parse(newToken);
     try {
-        const response = await axios.post('http://192.168.0.102:5001/changePassword', {
+        const response = await axios.post('https://recipe-app-tlv5.onrender.com/changePassword', {
             email: parseToken,
             currentPassword,
             newPassword

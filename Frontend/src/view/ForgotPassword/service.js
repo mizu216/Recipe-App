@@ -6,7 +6,7 @@ export const postSendOTP = async (email,navigation) => {
     email:email,
     mode:'reset'
   };
-  const response = await axios.post('http://192.168.0.102:5001/send-otp',userData)
+  const response = await axios.post('https://recipe-app-tlv5.onrender.com/send-otp',userData)
     try{
       if (response.data.status==="ok"){
         navigation.navigate('VerifyOTP', { email, mode:'reset'}); 

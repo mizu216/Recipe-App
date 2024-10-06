@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 export const postPasswordReset = async (navigation,newPassword,email) => {
     try {
-        const response = await axios.post('http://192.168.0.102:5001/resetPassword', {
+        const response = await axios.post('https://recipe-app-tlv5.onrender.com/resetPassword', {
             email,
             newPassword,
         });
